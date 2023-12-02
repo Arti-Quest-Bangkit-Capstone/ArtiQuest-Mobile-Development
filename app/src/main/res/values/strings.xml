@@ -1,3 +1,32 @@
 <resources>
     <string name="app_name">ArtiQuest</string>
+    <string name="ss_elipse1">Elipse left Splash Screen</string>
+    <string name="ss_elipse2">Elipse right Splash Screen</string>
+    <string name="logo">Logo Application</string>
+    <string name="welcome">Welcome</string>
+    <string name="quote_welcome">"Every artifact we find is a piece of \nthe puzzle that helps us to understand \nthe past." - Indiana Jones</string>
+    <string name="sign_in">Sign In</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="register">Register</string>
+    <string name="login">Login</string>
+    <string name="please_sign_in">Please Sign In to continue</string>
+    <string name="email_address">Email Address</string>
+    <string name="password">Password</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="or">or</string>
+    <string name="signin_google">Continue with Google</string>
+    <string name="please_register">Please Register to continue</string>
+    <string name="username">Username</string>
+
+    <string name="email_warning_invalid">Wrong email entered</string>
+    <string name="name_warning_empty">Please input your name</string>
+    <string name="email_warning_empty">Please input your email</string>
+    <string name="password_warning_empty">Please input your password</string>
+    <string name="password_warning_length">"Password can't be less than 8 characters"</string>
+    <string name="password_warning_unique">Passwords must have uppercase letters, special characters, and numbers</string>
+    <string name="circle_welcome">Circle Welcome</string>
+    <string name="previous_button">Previous Button</string>
+    <string name="back">Back</string>
+    <string name="circle_lr">Circle LR</string>
+
 </resources>
