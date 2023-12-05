@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "241005190579",
+    "project_id": "artiquest-cd451",
+    "storage_bucket": "artiquest-cd451.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:241005190579:android:fc55c3a352992e44ddffc6",
+        "android_client_info": {
+          "package_name": "com.thequest.artiquest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "241005190579-7sdqvnvg71i4so3o43s19j0ul7tsq0a9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.thequest.artiquest",
+            "certificate_hash": "9be020f7246728c7c662616af1b1c5c627b3650b"
+          }
+        },
+        {
+          "client_id": "241005190579-clvn2m9gn6l47mbpl2fvhecu3ber42ql.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCaNnf-2oEppIAJ7EBBfMxM9rub8SRHQSo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "241005190579-clvn2m9gn6l47mbpl2fvhecu3ber42ql.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
