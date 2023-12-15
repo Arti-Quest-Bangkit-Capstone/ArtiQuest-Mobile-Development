@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.thequest.artiquest.databinding.ActivityWelcomeBinding
 import com.thequest.artiquest.view.login.LoginActivity
 import com.thequest.artiquest.view.signup.SignupActivity
+import com.thequest.artiquest.view.welcome.feature.ListenActivity
 
 class WelcomeActivity : AppCompatActivity() {
 
@@ -15,21 +16,28 @@ class WelcomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityWelcomeBinding.inflate((layoutInflater))
         setContentView(binding.root)
-
         setupAction()
     }
 
     private fun setupAction() {
         binding.signinButton.setOnClickListener {
-            startActivity(Intent(this, LoginActivity::class.java))
+            val intent = Intent(this, LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+            finish()
         }
 
         binding.signupButton.setOnClickListener {
-            startActivity(Intent(this, SignupActivity::class.java))
+            val intent = Intent(this, SignupActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+            finish()
         }
 
         binding.previousButton.setOnClickListener {
-
+            val intent = Intent(this, ListenActivity::class.java)
+            startActivity(intent)
+            finish()
         }
     }
 }

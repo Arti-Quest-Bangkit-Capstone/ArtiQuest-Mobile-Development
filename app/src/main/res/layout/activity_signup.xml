@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/dark_blue_green"
+    android:background="@color/dark_brown"
     tools:context=".view.signup.SignupActivity">
 
     <ImageView
@@ -55,7 +55,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/font_roboto"
-        android:layout_marginTop="38dp"
+        android:layout_marginTop="28dp"
         android:text="@string/or"
         android:textAppearance="@style/or"
         app:layout_constraintEnd_toStartOf="@+id/view2"
@@ -70,7 +70,7 @@
         app:layout_constraintStart_toStartOf="@+id/guideline1"
         app:layout_constraintTop_toTopOf="@+id/guideline5"
         app:startIconDrawable="@drawable/baseline_account_circle_24"
-        app:startIconTint="@color/dark_blue_green">
+        app:startIconTint="@color/dark_brown">
 
         <com.thequest.artiquest.view.custom.MyEditText
             android:id="@+id/usernameEditText"
@@ -91,7 +91,7 @@
         app:layout_constraintStart_toStartOf="@+id/guideline1"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout1"
         app:startIconDrawable="@drawable/baseline_email_24"
-        app:startIconTint="@color/dark_blue_green">
+        app:startIconTint="@color/dark_brown">
 
         <com.thequest.artiquest.view.custom.MyEditText
             android:id="@+id/emailEditText"
@@ -114,7 +114,7 @@
         app:layout_constraintStart_toStartOf="@+id/guideline1"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
         app:startIconDrawable="@drawable/baseline_lock_24"
-        app:startIconTint="@color/dark_blue_green">
+        app:startIconTint="@color/dark_brown">
 
         <com.thequest.artiquest.view.custom.MyEditText
             android:id="@+id/passwordEditText"
@@ -144,7 +144,7 @@
         android:paddingBottom="16dp"
         android:text="@string/sign_up"
         android:textAllCaps="false"
-        android:textColor="@color/cream"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="@+id/guideline1"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
@@ -153,8 +153,8 @@
         android:id="@+id/view"
         android:layout_width="0dp"
         android:layout_height="1dp"
-        android:layout_marginTop="50dp"
-        android:background="@color/dark_blue_green"
+        android:layout_marginTop="45dp"
+        android:background="@color/dark_brown"
         app:layout_constraintEnd_toStartOf="@+id/guideline6"
         app:layout_constraintStart_toStartOf="@+id/guideline1"
         app:layout_constraintTop_toBottomOf="@+id/signup_button" />
@@ -163,8 +163,8 @@
         android:id="@+id/view2"
         android:layout_width="0dp"
         android:layout_height="1dp"
-        android:layout_marginTop="50dp"
-        android:background="@color/dark_blue_green"
+        android:layout_marginTop="45dp"
+        android:background="@color/dark_brown"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="@+id/guideline7"
         app:layout_constraintTop_toBottomOf="@+id/signup_button" />
@@ -186,7 +186,7 @@
         android:text="@string/signin_google"
         android:textAllCaps="false"
         android:textAppearance="@style/heading2"
-        android:textColor="@color/dark_blue_green"
+        android:textColor="@color/dark_brown"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="@+id/guideline1"
         app:layout_constraintTop_toBottomOf="@+id/textView7" />
@@ -225,7 +225,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.43" />
+        app:layout_constraintGuide_percent="0.4" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline6"

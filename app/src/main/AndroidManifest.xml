@@ -2,6 +2,17 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-feature android:name="android.hardware.camera" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -12,6 +23,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ArtiQuest"
         tools:targetApi="31">
+        <activity
+            android:name=".view.login.ForgetPasswordActivity"
+            android:exported="false" />
         <activity
             android:name=".view.profile.DetailProfileActivity"
             android:exported="false" />
@@ -41,6 +55,18 @@
             android:exported="false" />
         <activity
             android:name=".view.welcome.WelcomeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.welcome.feature.ListenActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.welcome.feature.ArtixploreActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.welcome.feature.ArtiScanActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.welcome.feature.FeatureActivity"
             android:exported="false" />
         <activity
             android:name=".view.splashscreen.SplashActivity"
