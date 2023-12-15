@@ -6,6 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clipToOutline="true"
-    tools:context=".view.detail.ProfileDetailActivity">
+    tools:context=".view.profile.ProfileDetailActivity">
 
 </RelativeLayout>
