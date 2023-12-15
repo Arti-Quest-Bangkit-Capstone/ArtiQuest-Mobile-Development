@@ -12,27 +12,27 @@
         android:id="@+id/iv_bg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="52dp"
         android:background="@drawable/rectangle_4"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="60dp"
-        app:layout_constraintStart_toStartOf="0dp"
-        app:layout_constraintEnd_toEndOf="0dp"
         app:layout_constraintBottom_toBottomOf="0dp"
-        app:layout_constraintTop_toTopOf="0dp"
-        />
-
-    <TextView
-        android:id="@+id/edit_profil"
-        android:layout_width="123dp"
-        android:layout_height="25dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginBottom="16dp"
-        android:fontFamily="@font/font_montserrat"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/iv_bg"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/font_montserrat"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:text="Edit Profile" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
