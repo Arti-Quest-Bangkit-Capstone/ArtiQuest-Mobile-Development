@@ -4,12 +4,6 @@
     <string name="ss_elipse2">Elipse right Splash Screen</string>
     <string name="logo">Logo Application</string>
     <string name="welcome">Welcome</string>
-    <string name="feature1">ARTISCAN</string>
-    <string name="explain_feature1">This feature supports you to find out artifact information through image scanning.</string>
-    <string name="feature2">ARTIXPLORE</string>
-    <string name="explain_feature2">This feature to search artifacts by name with filters to make it easier for you to find the artifacts you want.</string>
-    <string name="feature3">LISTEN</string>
-    <string name="explain_feature3">This feature helps you get information in audio form.</string>
     <string name="quote_welcome">"Every artifact we find is a piece of \nthe puzzle that helps us to understand \nthe past." - Indiana Jones</string>
     <string name="sign_in">Sign In</string>
     <string name="sign_up">Sign Up</string>
@@ -23,7 +17,6 @@
     <string name="signin_google">Continue with Google</string>
     <string name="please_register">Please Register to continue</string>
     <string name="username">Username</string>
-    <string name="explaination_apk">"Discover the wonders of Indonesia's cultural heritage. \n\nWith ArtiQuest, you can explore a centralized database of artifacts, right at your fingertips."</string>
 
     <string name="email_warning_invalid">Wrong email entered</string>
     <string name="name_warning_empty">Please input your name</string>
@@ -33,11 +26,15 @@
     <string name="password_warning_unique">Passwords must have uppercase letters, special characters, and numbers</string>
     <string name="circle_welcome">Circle Welcome</string>
     <string name="previous_button">Previous Button</string>
-    <string name="next_button">Next Button</string>
     <string name="back">Back</string>
     <string name="circle_lr">Circle LR</string>
 
     <string name="web_client_id">241005190579-clvn2m9gn6l47mbpl2fvhecu3ber42ql.apps.googleusercontent.com</string>
     <string name="title_activity_maps">MapsActivity</string>
+    <string name="name">Name</string>
+    <string name="pers_in">Personal Information</string>
+    <string name="priv_in">Private Information</string>
+    <string name="mail">Email</string>
+    <string name="phone">Phone</string>
 
 </resources>
