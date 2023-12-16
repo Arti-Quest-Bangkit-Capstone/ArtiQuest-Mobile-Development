@@ -3,6 +3,7 @@ package com.thequest.artiquest.view.signup
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -141,7 +142,11 @@ class SignupActivity : AppCompatActivity() {
             val email = binding.emailEditText.text.toString()
             val password = binding.passwordEditText.text.toString()
 
+            showLoading(true)
+
             emailPassHelper.register(username, email, password) { success ->
+                showLoading(false)
+
                 if (success == true) {
                     // Registrasi berhasil, lakukan tindakan setelah registrasi
                     val intent = Intent(this, LoginActivity::class.java)
@@ -161,6 +166,8 @@ class SignupActivity : AppCompatActivity() {
 
     private fun updateUI() {
     }
+
+    private fun showLoading(isLoading: Boolean) { binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE }
 
     companion object {
         private const val TAG = "GoogleActivity"
