@@ -3,6 +3,7 @@ package com.thequest.artiquest.view.signup
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -10,6 +11,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
+import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.auth
 import com.thequest.artiquest.R
@@ -102,6 +105,22 @@ class SignupActivity : AppCompatActivity() {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "signInWithCredential:failure", task.exception)
                     updateUI()
+
+                    // Handle different authentication failures
+                    when {
+                        task.exception is FirebaseAuthInvalidCredentialsException -> {
+                            // Invalid credentials (e.g., the Google ID Token is expired)
+                            Toast.makeText(this, "Authentication failed: Invalid credentials", Toast.LENGTH_SHORT).show()
+                        }
+                        task.exception is FirebaseAuthUserCollisionException -> {
+                            // User with the same email already exists
+                            Toast.makeText(this, "Authentication failed: User with the same email already exists", Toast.LENGTH_SHORT).show()
+                        }
+                        else -> {
+                            // General authentication failure
+                            Toast.makeText(this, "Authentication failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+                        }
+                    }
                 }
             }
     }
@@ -129,14 +148,11 @@ class SignupActivity : AppCompatActivity() {
                     startActivity(intent)
                     finish()
                 }
-
-
             }
         }
 
         binding.imageViewBack.setOnClickListener {
             val intent = Intent(this, WelcomeActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
             finish()
         }

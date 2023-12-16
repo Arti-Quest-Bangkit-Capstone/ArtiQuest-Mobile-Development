@@ -36,8 +36,11 @@
     <string name="next_button">Next Button</string>
     <string name="back">Back</string>
     <string name="circle_lr">Circle LR</string>
+    <string name="explain_forgot_pass">Please Enter Your Email Address To Receive a Verification Reset Password</string>
+    <string name="send">Send</string>
 
     <string name="web_client_id">241005190579-clvn2m9gn6l47mbpl2fvhecu3ber42ql.apps.googleusercontent.com</string>
     <string name="title_activity_maps">MapsActivity</string>
+    <string name="circle_password">Circle Password</string>
 
 </resources>

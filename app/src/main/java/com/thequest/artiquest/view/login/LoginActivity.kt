@@ -72,8 +72,6 @@ class LoginActivity : AppCompatActivity() {
                     // Pastikan email sudah diverifikasi sebelum pindah ke HomeActivity
                     if (user == true) {
                         val intent = Intent(this, HomeActivity::class.java)
-                        intent.flags =
-                            Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                         startActivity(intent)
                         finish()
                     } else {
@@ -90,14 +88,12 @@ class LoginActivity : AppCompatActivity() {
 
         binding.imageViewBack.setOnClickListener {
             val intent = Intent(this, WelcomeActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
             finish()
         }
 
         binding.tvRegister.setOnClickListener {
             val intent = Intent(this, SignupActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
             finish()
         }
@@ -108,7 +104,9 @@ class LoginActivity : AppCompatActivity() {
         }
 
         binding.forgetPassword.setOnClickListener {
-
+            val intent = Intent(this, ForgetPasswordActivity::class.java)
+            startActivity(intent)
+            finish()
         }
     }
 
