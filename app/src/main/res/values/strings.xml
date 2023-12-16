@@ -48,5 +48,6 @@
     <string name="mail">Email</string>
     <string name="phone">Phone</string>
     <string name="artiscan">ARTISCAN</string>
+    <string name="edit_profile">Edit Profile</string>
 
 </resources>

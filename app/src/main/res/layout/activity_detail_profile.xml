@@ -8,8 +8,6 @@
     android:background="@color/light_brown"
     tools:context=".view.profile.DetailProfileActivity">
 
-
-
     <ImageView
         android:id="@+id/iv_bg"
         android:layout_width="match_parent"
@@ -34,7 +32,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Edit Profile" />
+        tools:text="@string/edit_profile" />
 
     <ImageView
         android:layout_width="121dp"
@@ -97,6 +95,20 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.513" />
 
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="160dp"
+        android:layout_marginEnd="30dp"
+        android:fontFamily="@font/font_montserrat"
+        android:hint="@string/name"
+        android:textColorHint="@color/light_brown"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="355dp" />
+
     <TextView
         android:layout_width="110dp"
         android:layout_height="24dp"
@@ -112,6 +124,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.587" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="160dp"
+        android:layout_marginEnd="30dp"
+        android:fontFamily="@font/font_montserrat"
+        android:hint="@string/username"
+        android:textColorHint="@color/light_brown"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="408dp" />
 
     <TextView
         android:layout_width="290dp"
@@ -146,6 +172,20 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.815" />
 
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="160dp"
+        android:layout_marginEnd="30dp"
+        android:fontFamily="@font/font_montserrat"
+        android:hint="@string/mail"
+        android:textColorHint="@color/light_brown"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="567dp" />
+
     <TextView
         android:layout_width="66dp"
         android:layout_height="26dp"
@@ -162,4 +202,17 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.895" />
 
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="160dp"
+        android:layout_marginEnd="30dp"
+        android:fontFamily="@font/font_montserrat"
+        android:hint="@string/phone"
+        android:textColorHint="@color/light_brown"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="624dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
