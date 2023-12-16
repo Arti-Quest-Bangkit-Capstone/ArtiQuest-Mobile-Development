@@ -4,6 +4,7 @@ import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.thequest.artiquest.databinding.ActivityLoginBinding
@@ -67,7 +68,12 @@ class LoginActivity : AppCompatActivity() {
             val email = binding.emailEditText.text.toString()
             val password = binding.passwordEditText.text.toString()
 
+            showLoading(true)
+
             emailPassHelper.login(email, password) { user ->
+                // Sembunyikan ProgressBar saat proses login selesai
+                showLoading(false)
+
                 if (user != null) {
                     // Pastikan email sudah diverifikasi sebelum pindah ke HomeActivity
                     if (user == true) {
@@ -109,6 +115,8 @@ class LoginActivity : AppCompatActivity() {
             finish()
         }
     }
+
+    private fun showLoading(isLoading: Boolean) { binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE }
 
     companion object {
         const val RC_SIGN_IN = 9001
