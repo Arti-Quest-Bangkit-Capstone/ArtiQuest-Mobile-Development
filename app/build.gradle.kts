@@ -43,6 +43,7 @@ android {
 }
 
 dependencies {
+    val cameraxVersion = "1.2.3"
 
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
@@ -100,5 +101,10 @@ dependencies {
     testImplementation("org.mockito:mockito-inline:4.4.0")
 
     testImplementation ("org.robolectric:robolectric:4.5.1")
+
+    // Library Camera
+    implementation("androidx.camera:camera-camera2:$cameraxVersion")
+    implementation("androidx.camera:camera-lifecycle:$cameraxVersion")
+    implementation("androidx.camera:camera-view:$cameraxVersion")
 
 }

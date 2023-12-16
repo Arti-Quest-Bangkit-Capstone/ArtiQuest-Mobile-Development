@@ -42,5 +42,10 @@
     <string name="web_client_id">241005190579-clvn2m9gn6l47mbpl2fvhecu3ber42ql.apps.googleusercontent.com</string>
     <string name="title_activity_maps">MapsActivity</string>
     <string name="circle_password">Circle Password</string>
+    <string name="name">Name</string>
+    <string name="pers_in">Personal Information</string>
+    <string name="priv_in">Private Information</string>
+    <string name="mail">Email</string>
+    <string name="phone">Phone</string>
 
 </resources>
