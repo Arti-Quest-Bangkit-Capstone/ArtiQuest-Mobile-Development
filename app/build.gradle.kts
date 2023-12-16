@@ -81,12 +81,6 @@ dependencies {
     // Library Data Store
     implementation ("androidx.datastore:datastore-preferences:1.0.0")
 
-    // Library Camera
-    val cameraxVersion = "1.3.0"
-    implementation("androidx.camera:camera-camera2:$cameraxVersion")
-    implementation("androidx.camera:camera-lifecycle:$cameraxVersion")
-    implementation("androidx.camera:camera-view:$cameraxVersion")
-
     // Library Paging3
     implementation("androidx.paging:paging-runtime-ktx:3.2.1")
 

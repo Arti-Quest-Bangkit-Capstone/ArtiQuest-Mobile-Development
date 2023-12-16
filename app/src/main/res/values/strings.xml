@@ -47,5 +47,6 @@
     <string name="priv_in">Private Information</string>
     <string name="mail">Email</string>
     <string name="phone">Phone</string>
+    <string name="artiscan">ARTISCAN</string>
 
 </resources>
