@@ -49,5 +49,8 @@
     <string name="phone">Phone</string>
     <string name="artiscan">ARTISCAN</string>
     <string name="edit_profile">Edit Profile</string>
+    <string name="my_profile">My Profile</string>
+    <string name="rectangle_detail">Rectangle Detail</string>
+    <string name="picture_profile">Picture Profile</string>
 
 </resources>
