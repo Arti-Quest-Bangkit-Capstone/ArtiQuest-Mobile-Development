@@ -30,15 +30,14 @@
         android:layout_marginTop="16dp"
         android:fontFamily="@font/font_montserrat"
         android:gravity="center"
+        android:text="@string/artiscan"
         android:textColor="@color/light_brown"
         android:textSize="30sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:text="@string/artiscan" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/captureImage"
