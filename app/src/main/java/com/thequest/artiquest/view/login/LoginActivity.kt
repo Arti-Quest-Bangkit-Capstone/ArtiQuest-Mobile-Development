@@ -80,13 +80,6 @@ class LoginActivity : AppCompatActivity() {
                         val intent = Intent(this, HomeActivity::class.java)
                         startActivity(intent)
                         finish()
-                    } else {
-                        // Jika email belum diverifikasi, beri tahu pengguna
-                        Toast.makeText(
-                            this,
-                            "Email not verified. Please check your email.",
-                            Toast.LENGTH_SHORT
-                        ).show()
                     }
                 }
             }

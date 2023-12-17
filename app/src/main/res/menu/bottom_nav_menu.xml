@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/home"
         android:icon="@drawable/baseline_home_24"
@@ -7,10 +8,11 @@
 
     <item
         android:id="@+id/placeholder"
-        android:title="" />
+        android:title=""
+        app:actionViewClass="android.view.View"/>
 
     <item
-        android:id="@+id/Profile"
+        android:id="@+id/profile"
         android:icon="@drawable/baseline_account_circle_24"
         android:title="@string/profile" />
 

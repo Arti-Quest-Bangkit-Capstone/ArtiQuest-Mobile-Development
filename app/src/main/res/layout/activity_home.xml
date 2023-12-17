@@ -67,7 +67,7 @@
         android:layout_gravity="bottom"
         android:background="@android:color/transparent"
         android:backgroundTint="@color/dark_brown"
-        app:fabCradleMargin="12dp"
+        app:fabCradleMargin="10dp"
         app:fabCradleRoundedCornerRadius="20dp"
         app:fabCradleVerticalOffset="10dp">
 
