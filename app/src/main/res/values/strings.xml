@@ -56,4 +56,8 @@
     <string name="cancel_save">Cancel Save</string>
     <string name="save">Save</string>
 
+    <string name="searchbar_hint">Search</string>
+    <string name="home">Home</string>
+    <string name="profile">Profile</string>
+
 </resources>
