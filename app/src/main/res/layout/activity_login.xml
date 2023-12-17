@@ -130,7 +130,6 @@
         style="@style/font_btn_2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
         android:background="@drawable/bg_button_3"
         android:fontFamily="@font/font_roboto"
         android:textAppearance="@style/heading2"
