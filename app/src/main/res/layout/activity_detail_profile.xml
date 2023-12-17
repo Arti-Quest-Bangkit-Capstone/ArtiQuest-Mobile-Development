@@ -33,9 +33,7 @@
         android:layout_marginTop="52dp"
         android:background="@drawable/rectangle4"
         android:contentDescription="@string/rectangle_detail"
-        app:layout_constraintBottom_toBottomOf="0dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
