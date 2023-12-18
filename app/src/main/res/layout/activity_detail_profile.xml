@@ -51,6 +51,7 @@
         tools:text="@string/edit_profile" />
 
     <ImageView
+        android:id="@+id/profil_picture"
         android:layout_width="121dp"
         android:layout_height="121dp"
         android:foregroundGravity="center"
@@ -58,7 +59,7 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline17"
         app:layout_constraintStart_toStartOf="@+id/guideline16"
         app:layout_constraintTop_toBottomOf="@+id/textView4"
-        tools:src="@tools:sample/avatars"
+        android:src="@drawable/account_default"
         android:contentDescription="@string/picture_profile" />
 
     <TextView
@@ -103,12 +104,13 @@
         app:layout_constraintStart_toStartOf="@+id/guideline16"
         app:layout_constraintTop_toTopOf="@+id/editTextNama" />
 
-    <EditText
+    <com.thequest.artiquest.view.custom.MyEditText
         android:id="@+id/editTextNama"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:fontFamily="@font/font_montserrat"
         android:hint="@string/name"
+        android:textColor="@color/white"
         android:textColorHint="@color/white"
         android:textSize="14sp"
         app:layout_constraintEnd_toStartOf="@+id/guideline17"
@@ -132,12 +134,13 @@
         app:layout_constraintStart_toStartOf="@+id/guideline16"
         app:layout_constraintTop_toTopOf="@+id/editTextUsername" />
 
-    <EditText
+    <com.thequest.artiquest.view.custom.MyEditText
         android:id="@+id/editTextUsername"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:fontFamily="@font/font_montserrat"
         android:hint="@string/username"
+        android:textColor="@color/white"
         android:textColorHint="@color/white"
         android:textSize="14sp"
         app:layout_constraintEnd_toStartOf="@+id/guideline17"
@@ -176,18 +179,20 @@
         app:layout_constraintStart_toStartOf="@+id/guideline16"
         app:layout_constraintTop_toTopOf="@+id/editTextEmail" />
 
-    <EditText
+    <com.thequest.artiquest.view.custom.MyEditText
         android:id="@+id/editTextEmail"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:fontFamily="@font/font_montserrat"
         android:hint="@string/mail"
+        android:textColor="@color/white"
         android:textColorHint="@color/white"
         android:textSize="14sp"
         app:layout_constraintEnd_toStartOf="@+id/guideline17"
         app:layout_constraintStart_toStartOf="@+id/guideline23"
         app:layout_constraintTop_toTopOf="@+id/guideline22"
         android:importantForAutofill="no"
+        android:enabled="false"
         android:inputType="textEmailAddress" />
 
     <TextView
@@ -205,12 +210,13 @@
         app:layout_constraintStart_toStartOf="@+id/guideline16"
         app:layout_constraintTop_toBottomOf="@+id/editTextEmail" />
 
-    <EditText
+    <com.thequest.artiquest.view.custom.MyEditText
         android:id="@+id/editTextNumber"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:fontFamily="@font/font_montserrat"
         android:hint="@string/phone"
+        android:textColor="@color/white"
         android:textColorHint="@color/white"
         android:textSize="14sp"
         android:inputType="number"
