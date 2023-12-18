@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.thequest.artiquest.databinding.ActivityLoginBinding
 import com.thequest.artiquest.view.home.HomeActivity
@@ -30,6 +29,7 @@ class LoginActivity : AppCompatActivity() {
 
         // Inisialisasi GoogleSignInHelper dengan aktivitas saat ini
         googleSignInHelper = GoogleSignInHelper(this)
+
 
         setHint()
         setupAction()
@@ -59,8 +59,10 @@ class LoginActivity : AppCompatActivity() {
 
 
     private fun setHint() {
-        binding.emailEditText.setEmailHint()
-        binding.passwordEditText.setPasswordHint()
+        binding.apply {
+            emailEditText.setEmailHint()
+            passwordEditText.setPasswordHint()
+        }
     }
 
     private fun setupAction() {
@@ -109,9 +111,11 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun showLoading(isLoading: Boolean) { binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE }
+    private fun showLoading(isLoading: Boolean) {
+        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
 
     companion object {
-        const val RC_SIGN_IN = 9001
+        private const val RC_SIGN_IN = 9001
     }
 }

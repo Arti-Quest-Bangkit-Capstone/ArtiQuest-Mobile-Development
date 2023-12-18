@@ -26,11 +26,15 @@
     <string name="explaination_apk">"Discover the wonders of Indonesia's cultural heritage. \n\nWith ArtiQuest, you can explore a centralized database of artifacts, right at your fingertips."</string>
 
     <string name="email_warning_invalid">Wrong email entered</string>
+    <string name="number_warning_empty">Please input your phone number</string>
+    <string name="number_warning_invalid">Wrong phone number entered</string>
+    <string name="username_warning_invalid">Wrong username entered</string>
+    <string name="username_warning_empty">Please input your username</string>
     <string name="name_warning_empty">Please input your name</string>
     <string name="email_warning_empty">Please input your email</string>
     <string name="password_warning_empty">Please input your password</string>
     <string name="password_warning_length">"Password can't be less than 8 characters"</string>
-    <string name="password_warning_unique">Passwords must have uppercase letters, special characters, and numbers</string>
+    <string name="password_warning_unique">Passwords must have uppercase letters and numbers</string>
     <string name="circle_welcome">Circle Welcome</string>
     <string name="previous_button">Previous Button</string>
     <string name="next_button">Next Button</string>
@@ -59,5 +63,6 @@
     <string name="searchbar_hint">Search</string>
     <string name="home">Home</string>
     <string name="profile">Profile</string>
+    <string name="user">User</string>
 
 </resources>

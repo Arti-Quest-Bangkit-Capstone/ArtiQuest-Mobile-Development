@@ -39,6 +39,10 @@ class MyEditText : AppCompatEditText {
                     R.id.usernameEditText -> validateUsername(s.toString())
                     R.id.emailEditText -> validateEmail(s.toString())
                     R.id.passwordEditText -> validatePassword(s.toString())
+                    R.id.editTextNama -> validateName(s.toString())
+                    R.id.editTextUsername -> validateUsername(s.toString())
+                    R.id.editTextEmail -> validateEmail(s.toString())
+                    R.id.editTextNumber -> validateNumber(s.toString())
                 }
             }
 
@@ -49,9 +53,39 @@ class MyEditText : AppCompatEditText {
 
     }
 
-    private fun validateUsername(text: String) {
+    private fun validateName(text: String) {
         val errorMessage = when {
             text.isEmpty() -> resources.getString(R.string.name_warning_empty)
+            else -> null
+        }
+
+        if (errorMessage != null) {
+            error = errorMessage
+        } else {
+            error = null
+        }
+    }
+
+    private fun validateNumber(text: String) {
+        val regexPattern = Regex("^\\+?[0-9.-]+\$")
+        val errorMessage = when {
+            text.isEmpty() -> resources.getString(R.string.number_warning_empty)
+            !regexPattern.matches(text) -> resources.getString(R.string.number_warning_invalid)
+            else -> null
+        }
+
+        if (errorMessage != null) {
+            error = errorMessage
+        } else {
+            error = null
+        }
+    }
+
+    private fun validateUsername(text: String) {
+        val regexPattern = Regex("^[a-zA-Z0-9_-]{3,15}\$")
+        val errorMessage = when {
+            text.isEmpty() -> resources.getString(R.string.username_warning_empty)
+            !regexPattern.matches(text) -> resources.getString(R.string.username_warning_invalid)
             else -> null
         }
 
@@ -108,9 +142,8 @@ class MyEditText : AppCompatEditText {
 
     private fun isValidPassword(password: String): Boolean {
         val upperCase = password.any { it.isUpperCase() }
-        val specialChar = password.any { it.isLetterOrDigit().not() }
         val digit = password.any { it.isDigit() }
 
-        return upperCase && specialChar && digit
+        return upperCase && digit
     }
 }
