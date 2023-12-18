@@ -54,7 +54,7 @@ class EmailPassHelper(private val activity: Activity) {
         if (username.isEmpty() || email.isEmpty() || password.isEmpty()) {
             Toast.makeText(
                 activity,
-                "Usernmae, Email and Password must not be empty",
+                "Username, Email and Password must not be empty",
                 Toast.LENGTH_SHORT
             ).show()
             onComplete(false)
