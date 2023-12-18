@@ -45,6 +45,7 @@ android {
 dependencies {
     val cameraxVersion = "1.2.3"
 
+    implementation ("pub.devrel:easypermissions:3.0.0")
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.10.0")
@@ -90,7 +91,7 @@ dependencies {
 
     // Library  testing LiveData dan Coroutines
     testImplementation("androidx.arch.core:core-testing:2.2.0") // InstantTaskExecutorRule
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.1") //TestDispatcher
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3") //TestDispatcher
     testImplementation("org.mockito:mockito-core:5.3.1")
     testImplementation("org.mockito:mockito-inline:4.4.0")
 
