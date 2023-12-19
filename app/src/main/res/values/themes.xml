@@ -6,7 +6,7 @@
     </style>
 
     <style name="MySearchViewStyle" parent="Widget.AppCompat.SearchView">
-        <item name="android:textColorHint">@color/light_brown</item>
+        <item name="android:textColorHint">@color/light_brown_transparant</item>
         <item name="android:editTextColor">@color/light_brown</item>
     </style>
 
@@ -30,6 +30,11 @@
     <style name="heading3_2">
         <item name="android:textSize">13sp</item>
         <item name="android:textColor">@color/dark_brown</item>
+    </style>
+
+    <style name="title">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 
     <style name="or">
