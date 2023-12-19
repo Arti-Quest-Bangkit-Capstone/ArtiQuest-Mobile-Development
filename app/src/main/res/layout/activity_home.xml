@@ -27,6 +27,7 @@
             app:queryHint="@string/searchbar_hint"
             android:theme="@style/MySearchViewStyle"
             app:searchIcon="@drawable/baseline_search_24"
+            android:focusable="false"
             app:closeIcon="@drawable/baseline_close_24"/>
 
 
@@ -80,6 +81,7 @@
             app:elevation="0dp"
             app:itemIconTint="@color/light_brown"
             app:itemTextColor="@color/light_brown"
+            app:itemRippleColor="@color/white"
             app:menu="@menu/bottom_nav_menu" />
 
     </com.google.android.material.bottomappbar.BottomAppBar>

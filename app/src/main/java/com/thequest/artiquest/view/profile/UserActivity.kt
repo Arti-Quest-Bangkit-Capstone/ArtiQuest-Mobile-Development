@@ -12,6 +12,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.thequest.artiquest.R
 import com.thequest.artiquest.databinding.ActivityUserBinding
+import com.thequest.artiquest.view.camera.CameraActivity
 import com.thequest.artiquest.view.home.HomeActivity
 import com.thequest.artiquest.view.login.LoginActivity
 import com.thequest.artiquest.view.login.helper.EmailPassHelper
@@ -51,6 +52,34 @@ class UserActivity : AppCompatActivity() {
 
         binding.btnEditprofile.setOnClickListener {
             val intent = Intent(this, DetailProfileActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
+        binding.bottomNavigationView.background = null
+        binding.bottomNavigationView.menu.getItem(1).isEnabled = false
+        binding.bottomNavigationView.setOnItemSelectedListener { menuItem ->
+            Log.d("Navigation", "Item clicked: ${menuItem}")
+            when (menuItem.itemId) {
+                R.id.home -> {
+                    val intent = Intent(this, HomeActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+
+                R.id.profile -> {
+                    val intent = Intent(this, UserActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                    true
+                }
+
+                else -> false
+            }
+        }
+
+        binding.fab.setOnClickListener {
+            val intent = Intent(this, CameraActivity::class.java)
             startActivity(intent)
             finish()
         }

@@ -20,7 +20,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.thequest.artiquest.R
 import com.thequest.artiquest.databinding.ActivityDetailProfileBinding
-import com.thequest.artiquest.view.camera.getImageUri
+import com.thequest.artiquest.utils.getImageUri
 import pub.devrel.easypermissions.EasyPermissions
 
 class DetailProfileActivity : AppCompatActivity() {
@@ -240,6 +240,5 @@ class DetailProfileActivity : AppCompatActivity() {
         private const val NEWNUMBER = "new_number"
         private const val NEWDISPLAYNAMENAME = "new_display_name"
         private const val USER_PREFERENCE = "user_preference"
-
     }
 }

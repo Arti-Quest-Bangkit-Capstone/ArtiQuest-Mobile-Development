@@ -24,8 +24,12 @@
         android:theme="@style/Theme.ArtiQuest"
         tools:targetApi="31">
         <activity
-            android:name=".view.profile.UserActivity"
+            android:name=".view.detail.DetailActivity"
             android:exported="false" />
+        <activity
+            android:name=".view.profile.UserActivity"
+            android:exported="false"
+            android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar" />
         <activity
             android:name=".view.login.ForgetPasswordActivity"
             android:exported="false" />
@@ -46,8 +50,8 @@
             android:label="@string/title_activity_maps" />
         <activity
             android:name=".view.home.HomeActivity"
-            android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar" />
         <activity
             android:name=".view.signup.SignupActivity"
             android:exported="false" />
@@ -86,7 +90,7 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"/>
+                android:resource="@xml/file_paths" />
         </provider>
     </application>
 

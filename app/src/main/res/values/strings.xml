@@ -64,5 +64,9 @@
     <string name="home">Home</string>
     <string name="profile">Profile</string>
     <string name="user">User</string>
+    <string name="artifact_name">Artifact Name</string>
+    <string name="artifact_picture">Artifact Picture</string>
+    <string name="description">Description</string>
+    <string name="explanation_description">Explanation Description</string>
 
 </resources>

@@ -4,6 +4,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="dark_brown">#222325</color>
     <color name="light_brown">#E1D5C9</color>
+    <color name="white_transparant">#8E8E8E</color>
+    <color name="light_brown_transparant">#7F7973</color>
     
     <color name="button_pressed">#88958F</color>
     <color name="button_disabled">#C3C3B3</color>

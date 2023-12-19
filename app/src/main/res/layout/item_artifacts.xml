@@ -23,6 +23,7 @@
             card_view:layout_constraintTop_toTopOf="parent"
             tools:src="@tools:sample/avatars" />
 
+
         <TextView
             android:id="@+id/tv_item_name"
             android:layout_width="0dp"
@@ -30,7 +31,7 @@
             android:fontFamily="@font/font_montserrat"
             android:textAlignment="center"
             android:textAppearance="@style/heading2"
-            android:textColor="@color/light_brown"
+            android:textColor="@color/white"
             android:textStyle="bold"
             android:layout_marginTop="15dp"
             card_view:layout_constraintEnd_toEndOf="parent"

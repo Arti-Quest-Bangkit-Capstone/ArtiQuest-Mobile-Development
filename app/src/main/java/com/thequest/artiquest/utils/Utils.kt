@@ -1,4 +1,4 @@
-package com.thequest.artiquest.view.camera
+package com.thequest.artiquest.utils
 
 import android.content.ContentValues
 import android.content.Context
