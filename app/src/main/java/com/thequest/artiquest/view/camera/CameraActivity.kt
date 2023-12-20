@@ -115,7 +115,7 @@ class CameraActivity : AppCompatActivity() {
                     intent.putExtra(EXTRA_CAMERAX_IMAGE, output.savedUri.toString())
                     setResult(CAMERAX_RESULT, intent)
                     finish()
-                    sendImageForIdentification(photoFile)
+//                    sendImageForIdentification(photoFile)
                 }
 
                 override fun onError(exc: ImageCaptureException) {
