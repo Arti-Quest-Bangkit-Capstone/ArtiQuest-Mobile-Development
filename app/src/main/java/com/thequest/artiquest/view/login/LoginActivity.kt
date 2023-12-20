@@ -48,6 +48,8 @@ class LoginActivity : AppCompatActivity() {
                     // Login berhasil, lakukan tindakan setelah login
                     // Misalnya, masuk ke halaman utama aplikasi
                     startActivity(Intent(this, HomeActivity::class.java))
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    finish()
                     Log.d(TAG, "Login berhasil: ${account.displayName}")
                 } else {
                     // Login gagal

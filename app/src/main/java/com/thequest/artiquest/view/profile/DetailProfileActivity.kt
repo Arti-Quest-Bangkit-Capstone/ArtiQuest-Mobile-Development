@@ -1,7 +1,6 @@
 package com.thequest.artiquest.view.profile
 
 import android.Manifest
-import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -14,13 +13,17 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.thequest.artiquest.R
+import com.thequest.artiquest.data.local.database.User
+import com.thequest.artiquest.data.local.database.UserDatabase
 import com.thequest.artiquest.databinding.ActivityDetailProfileBinding
 import com.thequest.artiquest.utils.getImageUri
+import kotlinx.coroutines.launch
 import pub.devrel.easypermissions.EasyPermissions
 
 class DetailProfileActivity : AppCompatActivity() {
@@ -86,19 +89,37 @@ class DetailProfileActivity : AppCompatActivity() {
 
                 val uid = user?.uid
 
-                // Mendapatkan referensi ke SharedPreferences
-                val sharedPreferences =
-                    getSharedPreferences("${USER_PREFERENCE}-$uid", Context.MODE_PRIVATE)
+                if (uid != null) {
+                    lifecycleScope.launch {
+                        val userDao = UserDatabase.getDatabase(this@DetailProfileActivity).userDao()
 
-                // Mendapatkan editor SharedPreferences
-                val editor = sharedPreferences.edit()
+                        // Ambil data user dari database lokal
+                        val existingUser = userDao.getUser(uid)
 
-                // Menyimpan data pengguna ke SharedPreferences
-                editor.putString(NEWUSERNAME, newUsername)
-                editor.putString(NEWDISPLAYNAMENAME, newDisplayName)
-                editor.putString(NEWNUMBER, newNumber)
-                editor.putString(PROFILE_PICTURE_URL, currentImageUri.toString())
-                editor.apply()
+                        if (existingUser == null) {
+                            // Jika data user belum ada, buat objek User baru dan simpan ke database
+                            val newUser = User(
+                                uid = uid,
+                                username = newUsername,
+                                displayName = newDisplayName,
+                                phoneNumber = newNumber,
+                                profilePictureUrl = currentImageUri?.toString() ?: "DEFAULT_URL"
+                            )
+                            userDao.insertUser(newUser)
+                        } else {
+                            // Jika data user sudah ada, perbarui data dengan informasi yang baru
+                            existingUser.username = newUsername
+                            existingUser.displayName = newDisplayName
+                            existingUser.phoneNumber = newNumber
+                            if (currentImageUri != null) {
+                                existingUser.profilePictureUrl = currentImageUri.toString()
+                            }
+                            userDao.updateUser(existingUser)
+                        }
+                    }
+
+                }
+
 
                 val intent = Intent(this, UserActivity::class.java)
                 startActivity(intent)
@@ -119,17 +140,15 @@ class DetailProfileActivity : AppCompatActivity() {
         val photoUrl = user?.photoUrl
         val displayName = user?.displayName
         val email = user?.email
-        val uid = user?.uid
-        val sharedPreferences =
-            getSharedPreferences("$USER_PREFERENCE-$uid", Context.MODE_PRIVATE)
+
 
         if (photoUrl != null) {
             val cornerRadius = 32
             Glide.with(this)
                 .load(photoUrl)
                 .apply(RequestOptions.bitmapTransform(RoundedCorners(cornerRadius)))
-                .placeholder(R.mipmap.ic_launcher_round)
-                .error(R.mipmap.ic_launcher_round)
+                .placeholder(R.drawable.account_default)
+                .error(R.drawable.account_default)
                 .into(binding.profilPicture)
             Log.d("Profile", "Photo URL: $photoUrl")
         } else {
@@ -143,9 +162,6 @@ class DetailProfileActivity : AppCompatActivity() {
             binding.editTextEmail.setText(email)
         }
 
-        val username = sharedPreferences.getString(USERNAME, "")
-        binding.editTextUsername.setText(username)
-
         getNewData()
 
     }
@@ -153,33 +169,39 @@ class DetailProfileActivity : AppCompatActivity() {
     private fun getNewData() {
         val auth = FirebaseAuth.getInstance()
         val user = auth.currentUser
-        val uid = user?.uid
-        val sharedPreferences =
-            getSharedPreferences("$USER_PREFERENCE-$uid", Context.MODE_PRIVATE)
 
-        val newUsername = sharedPreferences.getString(NEWUSERNAME, "")
-        val newDisplayName = sharedPreferences.getString(NEWDISPLAYNAMENAME, "")
-        val newNumber = sharedPreferences.getString(NEWNUMBER, "")
-        val profilePictureUrl = sharedPreferences.getString(PROFILE_PICTURE_URL, "")
-        if (!newUsername.isNullOrEmpty() || !newDisplayName.isNullOrEmpty()) {
-            binding.editTextUsername.setText(newUsername)
-            binding.editTextNama.setText(newDisplayName)
-        }
+        if (user != null) {
+            lifecycleScope.launch {
+                val userDao = UserDatabase.getDatabase(this@DetailProfileActivity).userDao()
 
-        binding.editTextNumber.setText(newNumber)
+                val existingUser = userDao.getUser(user.uid)
 
-        if (profilePictureUrl != null) {
-            if (profilePictureUrl.isNotEmpty()) {
-                val cornerRadius = 32
-                Glide.with(this)
-                    .load(Uri.parse(profilePictureUrl))
-                    .apply(RequestOptions.bitmapTransform(RoundedCorners(cornerRadius)))
-                    .placeholder(R.drawable.baseline_account_circle_24)
-                    .error(R.drawable.baseline_account_circle_24)
-                    .into(binding.profilPicture)
+                if (existingUser != null) {
+
+                    val username = existingUser.username
+                    val displayName = existingUser.displayName
+                    val phoneNumber = existingUser.phoneNumber
+                    val profilePictureUrl = existingUser.profilePictureUrl ?: "DEFAULT_URL"
+
+                    // Lakukan sesuatu dengan data tersebut
+                    binding.editTextUsername.setText(username)
+                    binding.editTextNama.setText(displayName)
+                    binding.editTextNumber.setText(phoneNumber)
+
+
+                    val cornerRadius = 32
+                    Glide.with(this@DetailProfileActivity)
+                        .load(Uri.parse(profilePictureUrl))
+                        .apply(RequestOptions.bitmapTransform(RoundedCorners(cornerRadius)))
+                        .placeholder(R.drawable.baseline_account_circle_24)
+                        .error(R.drawable.baseline_account_circle_24)
+                        .into(binding.profilPicture)
+                } else {
+                    // Data user tidak ditemukan di database lokal
+                    // Mungkin inisialisasi data atau tanggapan lainnya
+                }
             }
         }
-
 
     }
 
@@ -232,13 +254,7 @@ class DetailProfileActivity : AppCompatActivity() {
 
 
     companion object {
-        private const val PROFILE_PICTURE_URL = "profile_picture_url"
         private const val REQUIRED_PERMISSION_CAMERA = Manifest.permission.CAMERA
         private const val RC_CAMERA_PERMISSION = 123
-        private const val USERNAME = "username"
-        private const val NEWUSERNAME = "new_username"
-        private const val NEWNUMBER = "new_number"
-        private const val NEWDISPLAYNAMENAME = "new_display_name"
-        private const val USER_PREFERENCE = "user_preference"
     }
 }

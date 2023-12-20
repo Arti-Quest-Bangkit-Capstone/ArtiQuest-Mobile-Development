@@ -1,22 +1,24 @@
 package com.thequest.artiquest.view.profile
 
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.thequest.artiquest.R
+import com.thequest.artiquest.data.local.database.UserDatabase
 import com.thequest.artiquest.databinding.ActivityUserBinding
 import com.thequest.artiquest.view.camera.CameraActivity
 import com.thequest.artiquest.view.home.HomeActivity
 import com.thequest.artiquest.view.login.LoginActivity
 import com.thequest.artiquest.view.login.helper.EmailPassHelper
 import com.thequest.artiquest.view.login.helper.GoogleSignInHelper
+import kotlinx.coroutines.launch
 
 class UserActivity : AppCompatActivity() {
 
@@ -24,6 +26,7 @@ class UserActivity : AppCompatActivity() {
 
     private lateinit var googleSignInHelper: GoogleSignInHelper
     private lateinit var emailPassHelper: EmailPassHelper
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityUserBinding.inflate(layoutInflater)
@@ -58,8 +61,8 @@ class UserActivity : AppCompatActivity() {
 
         binding.bottomNavigationView.background = null
         binding.bottomNavigationView.menu.getItem(1).isEnabled = false
+        binding.bottomNavigationView.menu.getItem(2).isEnabled = false
         binding.bottomNavigationView.setOnItemSelectedListener { menuItem ->
-            Log.d("Navigation", "Item clicked: ${menuItem}")
             when (menuItem.itemId) {
                 R.id.home -> {
                     val intent = Intent(this, HomeActivity::class.java)
@@ -67,12 +70,6 @@ class UserActivity : AppCompatActivity() {
                     true
                 }
 
-                R.id.profile -> {
-                    val intent = Intent(this, UserActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                    true
-                }
 
                 else -> false
             }
@@ -93,8 +90,6 @@ class UserActivity : AppCompatActivity() {
         val photoUrl = user?.photoUrl
         val displayName = user?.displayName
         val email = user?.email
-
-        Log.d("Profile", "PDISP: $displayName")
 
         // Jika foto profil tersedia, Anda dapat menggunakannya
         if (photoUrl != null) {
@@ -127,25 +122,35 @@ class UserActivity : AppCompatActivity() {
     private fun getNewData() {
         val auth = FirebaseAuth.getInstance()
         val user = auth.currentUser
-        val uid = user?.uid
-        val sharedPreferences = getSharedPreferences("$USER_PREFERENCE-$uid", Context.MODE_PRIVATE)
 
-        val profilePictureUrl = sharedPreferences.getString(PROFILE_PICTURE_URL, "")
-        val newDisplayName = sharedPreferences.getString(NEWDISPLAYNAMENAME, "")
-        if (!newDisplayName.isNullOrEmpty()) {
-            binding.tvName.text = newDisplayName
-        }
+        if (user != null) {
+            lifecycleScope.launch {
+                val userDao = UserDatabase.getDatabase(this@UserActivity).userDao()
 
-        if (profilePictureUrl != null) {
-            if (profilePictureUrl.isNotEmpty()) {
-                val cornerRadius = 32
-                Glide.with(this)
-                    .load(Uri.parse(profilePictureUrl))
-                    .apply(RequestOptions.bitmapTransform(RoundedCorners(cornerRadius)))
-                    .placeholder(R.drawable.baseline_account_circle_24)
-                    .error(R.drawable.baseline_account_circle_24)
-                    .into(binding.profilePicture)
+                // Ambil data user dari database lokal
+                val existingUser = userDao.getUser(user.uid)
+
+                if (existingUser != null) {
+                    // Data user ditemukan, Anda dapat mengakses bidang-bidangnya
+                    val displayName = existingUser.displayName
+                    val profilePictureUrl = existingUser.profilePictureUrl ?: "DEFAULT_URL"
+
+                    // Lakukan sesuatu dengan data tersebut
+                    binding.tvName.text = displayName
+
+                    val cornerRadius = 32
+                    Glide.with(this@UserActivity)
+                        .load(Uri.parse(profilePictureUrl))
+                        .apply(RequestOptions.bitmapTransform(RoundedCorners(cornerRadius)))
+                        .placeholder(R.drawable.baseline_account_circle_24)
+                        .error(R.drawable.baseline_account_circle_24)
+                        .into(binding.profilePicture)
+                } else {
+                    // Data user tidak ditemukan di database lokal
+                    // Mungkin inisialisasi data atau tanggapan lainnya
+                }
             }
+
         }
 
 
@@ -169,9 +174,4 @@ class UserActivity : AppCompatActivity() {
         }
     }
 
-    companion object {
-        private const val PROFILE_PICTURE_URL = "profile_picture_url"
-        private const val NEWDISPLAYNAMENAME = "new_display_name"
-        private const val USER_PREFERENCE = "user_preference"
-    }
 }
