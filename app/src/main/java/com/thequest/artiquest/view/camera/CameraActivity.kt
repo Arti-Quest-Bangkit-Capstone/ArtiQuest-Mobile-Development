@@ -18,13 +18,29 @@ import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import com.thequest.artiquest.R
+import com.thequest.artiquest.data.remote.api.retrofit.ApiService
 import com.thequest.artiquest.databinding.ActivityCameraBinding
 import com.thequest.artiquest.utils.createCustomTempFile
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import java.io.File
 
 class CameraActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCameraBinding
     private var cameraSelector : CameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
     private var imageCapture : ImageCapture? = null
+    private val retrofit: Retrofit = Retrofit.Builder()
+        .baseUrl("YOUR_API")
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+
+    private val apiService: ApiService = retrofit.create(ApiService::class.java)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -99,6 +115,7 @@ class CameraActivity : AppCompatActivity() {
                     intent.putExtra(EXTRA_CAMERAX_IMAGE, output.savedUri.toString())
                     setResult(CAMERAX_RESULT, intent)
                     finish()
+                    sendImageForIdentification(photoFile)
                 }
 
                 override fun onError(exc: ImageCaptureException) {
@@ -124,6 +141,44 @@ class CameraActivity : AppCompatActivity() {
             )
         }
         supportActionBar?.hide()
+    }
+
+    private fun sendImageForIdentification(imageFile: File) {
+        val requestFile = imageFile.asRequestBody("image/*".toMediaTypeOrNull())
+        val body = MultipartBody.Part.createFormData("file", imageFile.name, requestFile)
+
+        apiService.identifyImage(body).enqueue(object : Callback<IdetificationResponse> {
+            override fun onResponse(
+                call: Call<IdetificationResponse>,
+                response: Response<IdetificationResponse>
+            ) {
+                if (response.isSuccessful) {
+                    val identificationResult = response.body()
+                    identificationResult?.let {
+                        val identifiedItem = it.itemName
+                        Toast.makeText(
+                            this@CameraActivity,
+                            "Object teridentifikasi : $identifiedItem" ,
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                } else {
+                    Toast.makeText(
+                        this@CameraActivity,
+                        "Gagal mengidentifikasi object.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+
+            override fun onFailure(call: Call<IdentificationResponse>, t: Throwable) {
+                Toast.makeText(
+                    this@CameraActivity,
+                    "Kesalahan jaringan : ${t.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        })
     }
 
     private val orientationEventListener by lazy {
