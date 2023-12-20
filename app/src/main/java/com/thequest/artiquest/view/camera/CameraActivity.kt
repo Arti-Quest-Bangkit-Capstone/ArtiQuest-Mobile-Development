@@ -11,11 +11,13 @@ import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.camera.core.CameraSelector
+import androidx.camera.core.CameraXThreads.TAG
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.ImageCaptureException
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
+import com.thequest.artiquest.R
 import com.thequest.artiquest.databinding.ActivityCameraBinding
 import com.thequest.artiquest.utils.createCustomTempFile
 
@@ -84,7 +86,7 @@ class CameraActivity : AppCompatActivity() {
     private fun takePhoto() {
         val imageCapture = imageCapture ?: return
 
-        val photoFile = createCustomTempFile(application)
+        val photoFile = createCustomTempFile(this)
 
         val outputOptions = ImageCapture.OutputFileOptions.Builder(photoFile).build()
 
