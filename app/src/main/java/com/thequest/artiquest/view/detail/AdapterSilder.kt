@@ -1,35 +1,37 @@
 package com.thequest.artiquest.view.detail
 
-import android.app.Activity
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import androidx.annotation.NonNull
 import androidx.viewpager.widget.PagerAdapter
+import com.bumptech.glide.Glide
 import com.thequest.artiquest.R
 
-class AdapterSilder (var dataSlider:ArrayList<Int>,var context : Activity?): PagerAdapter(){
-    lateinit var layoutInflater: LayoutInflater
+class AdapterSilder(private val context: Context, private val dataSlider: List<String?>) :
+    PagerAdapter() {
 
     override fun getCount(): Int {
         return dataSlider.size
     }
 
-    override fun isViewFromObject(view: View, `object`: Any): Boolean {
-        return view == `object`
+    override fun isViewFromObject(view: View, obj: Any): Boolean {
+        return view == obj
     }
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
-        layoutInflater = LayoutInflater.from(context)
+        val layoutInflater = LayoutInflater.from(context)
         val view = layoutInflater.inflate(R.layout.item_slide, container, false)
 
-        val imgViewSlider: ImageView
-        imgViewSlider = view.findViewById(R.id.iv_slider)
+        val imgViewSlider: ImageView = view.findViewById(R.id.iv_slider)
+        context.let {
+            Glide.with(it)
+                .load(dataSlider[position]) // Jika dataSlider berisi URL, ganti dengan URL tersebut
+                .into(imgViewSlider)
+        }
 
-        imgViewSlider.setImageResource(dataSlider[position])
-
-        container.addView(view,0)
+        container.addView(view, 0)
         return view
     }
 

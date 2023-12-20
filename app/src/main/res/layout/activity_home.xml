@@ -81,7 +81,6 @@
             app:elevation="0dp"
             app:itemIconTint="@color/light_brown"
             app:itemTextColor="@color/light_brown"
-            app:itemRippleColor="@color/white"
             app:menu="@menu/bottom_nav_menu" />
 
     </com.google.android.material.bottomappbar.BottomAppBar>
@@ -95,15 +94,5 @@
         android:src="@drawable/baseline_camera_24"
         app:borderWidth="0dp"
         app:layout_anchor="@+id/bottomAppBar" />
-
-
-    <!--    <Button-->
-    <!--        android:id="@+id/btn_signout"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:text="@string/circle_lr"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toBottomOf="@+id/rvArtifacts" />-->
-
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
