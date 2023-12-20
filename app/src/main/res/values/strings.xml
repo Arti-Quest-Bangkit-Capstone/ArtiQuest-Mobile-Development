@@ -68,5 +68,6 @@
     <string name="artifact_picture">Artifact Picture</string>
     <string name="description">Description</string>
     <string name="explanation_description">Explanation Description</string>
+    <string name="location_artifacts">Location of Artifacts</string>
 
 </resources>
