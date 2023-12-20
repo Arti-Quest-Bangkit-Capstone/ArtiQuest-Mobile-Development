@@ -143,43 +143,43 @@ class CameraActivity : AppCompatActivity() {
         supportActionBar?.hide()
     }
 
-    private fun sendImageForIdentification(imageFile: File) {
-        val requestFile = imageFile.asRequestBody("image/*".toMediaTypeOrNull())
-        val body = MultipartBody.Part.createFormData("file", imageFile.name, requestFile)
-
-        apiService.identifyImage(body).enqueue(object : Callback<IdetificationResponse> {
-            override fun onResponse(
-                call: Call<IdetificationResponse>,
-                response: Response<IdetificationResponse>
-            ) {
-                if (response.isSuccessful) {
-                    val identificationResult = response.body()
-                    identificationResult?.let {
-                        val identifiedItem = it.itemName
-                        Toast.makeText(
-                            this@CameraActivity,
-                            "Object teridentifikasi : $identifiedItem" ,
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                } else {
-                    Toast.makeText(
-                        this@CameraActivity,
-                        "Gagal mengidentifikasi object.",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
-
-            override fun onFailure(call: Call<IdentificationResponse>, t: Throwable) {
-                Toast.makeText(
-                    this@CameraActivity,
-                    "Kesalahan jaringan : ${t.message}",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-        })
-    }
+//    private fun sendImageForIdentification(imageFile: File) {
+//        val requestFile = imageFile.asRequestBody("image/*".toMediaTypeOrNull())
+//        val body = MultipartBody.Part.createFormData("file", imageFile.name, requestFile)
+//
+//        apiService.identifyImage(body).enqueue(object : Callback<IdetificationResponse> {
+//            override fun onResponse(
+//                call: Call<IdetificationResponse>,
+//                response: Response<IdetificationResponse>
+//            ) {
+//                if (response.isSuccessful) {
+//                    val identificationResult = response.body()
+//                    identificationResult?.let {
+//                        val identifiedItem = it.itemName
+//                        Toast.makeText(
+//                            this@CameraActivity,
+//                            "Object teridentifikasi : $identifiedItem" ,
+//                            Toast.LENGTH_SHORT
+//                        ).show()
+//                    }
+//                } else {
+//                    Toast.makeText(
+//                        this@CameraActivity,
+//                        "Gagal mengidentifikasi object.",
+//                        Toast.LENGTH_SHORT
+//                    ).show()
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<IdentificationResponse>, t: Throwable) {
+//                Toast.makeText(
+//                    this@CameraActivity,
+//                    "Kesalahan jaringan : ${t.message}",
+//                    Toast.LENGTH_SHORT
+//                ).show()
+//            }
+//        })
+//    }
 
     private val orientationEventListener by lazy {
         object : OrientationEventListener(this) {
