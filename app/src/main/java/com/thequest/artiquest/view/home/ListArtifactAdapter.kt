@@ -19,10 +19,8 @@ class ListArtifactAdapter(private val listArtifact: List<AgentItem>) :
     }
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-        // Bind data to UI elements inside the ViewHolder
         val artifact = listArtifact[position]
         holder.bind(artifact)
-//        holder.textItem.text = listArtifact[position]
     }
 
     override fun getItemCount(): Int {

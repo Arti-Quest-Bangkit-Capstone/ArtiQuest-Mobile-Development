@@ -58,18 +58,6 @@
             android:name=".view.welcome.WelcomeActivity"
             android:exported="false" />
         <activity
-            android:name=".view.welcome.feature.ListenActivity"
-            android:exported="false" />
-        <activity
-            android:name=".view.welcome.feature.ArtixploreActivity"
-            android:exported="false" />
-        <activity
-            android:name=".view.welcome.feature.ArtiScanActivity"
-            android:exported="false" />
-        <activity
-            android:name=".view.welcome.feature.FeatureActivity"
-            android:exported="false" />
-        <activity
             android:name=".view.splashscreen.SplashActivity"
             android:exported="true">
             <intent-filter>

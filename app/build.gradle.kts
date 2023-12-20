@@ -51,7 +51,7 @@ dependencies {
     implementation ("pub.devrel:easypermissions:3.0.0")
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.10.0")
+    implementation("com.google.android.material:material:1.11.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("com.google.android.gms:play-services-maps:18.2.0")
     testImplementation("junit:junit:4.13.2")
@@ -67,7 +67,7 @@ dependencies {
     // Library live data dan view model
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
-    implementation("androidx.activity:activity-ktx:1.8.1")
+    implementation("androidx.activity:activity-ktx:1.8.2")
 
     // Library Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
@@ -75,7 +75,7 @@ dependencies {
     implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
 
-//    // Library Room
+    // Library Room
     implementation("androidx.room:room-runtime:2.6.1")
     ksp("androidx.room:room-compiler:2.6.1")
 
@@ -104,5 +104,9 @@ dependencies {
     implementation("androidx.camera:camera-camera2:$cameraxVersion")
     implementation("androidx.camera:camera-lifecycle:$cameraxVersion")
     implementation("androidx.camera:camera-view:$cameraxVersion")
+
+    // Library ViewPager dan ViewPager Indicator
+    implementation ("androidx.viewpager2:viewpager2:1.0.0")
+    implementation ("com.tbuonomo:dotsindicator:5.0")
 
 }

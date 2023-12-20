@@ -44,9 +44,6 @@ class HomeActivity : AppCompatActivity() {
             showLoading(it)
         }
 
-
-
-
     }
 
     private fun setupAction() {

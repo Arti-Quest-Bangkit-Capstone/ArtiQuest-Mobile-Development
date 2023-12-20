@@ -77,15 +77,8 @@ class DetailActivity : AppCompatActivity(), OnMapReadyCallback, TextToSpeech.OnI
                 binding.apply {
                     tvName.text = artifact.displayName
                     tvDescription.text = artifact.description
-//                    Glide.with(root.context)
-//                        .load(artifact.photoUrl)
-//                        .into(imageDetailStory)
                     val handler = Handler(Looper.getMainLooper())
                     vpSlider = binding.viewPager
-//        val arrSlider= ArrayList<Int>()
-//        arrSlider.add(R.drawable.save)
-//        arrSlider.add(R.drawable.baseline_account_circle_24)
-//        arrSlider.add(R.drawable.account_default)
 
                     val imageUrls = listOf(
                         artifact.displayIcon,
@@ -120,38 +113,6 @@ class DetailActivity : AppCompatActivity(), OnMapReadyCallback, TextToSpeech.OnI
             }
         }
     }
-
-//    private fun pictureSlider() {
-//        val handler = Handler(Looper.getMainLooper())
-//        vpSlider = binding.viewPager
-////        val arrSlider= ArrayList<Int>()
-////        arrSlider.add(R.drawable.save)
-////        arrSlider.add(R.drawable.baseline_account_circle_24)
-////        arrSlider.add(R.drawable.account_default)
-//
-//        val imageUrls = listOf(
-//
-//        )
-//        val adapterSlider = AdapterSilder(arrSlider , this)
-//        vpSlider.adapter = adapterSlider
-//
-//        val runnable = object : Runnable {
-//            override fun run() {
-//                val currentItem = vpSlider.currentItem
-//                val totalCount = adapterSlider.count
-//
-//                if (currentItem < totalCount - 1) {
-//                    vpSlider.currentItem = currentItem + 1
-//                } else {
-//                    vpSlider.currentItem = 0
-//                }
-//
-//                handler.postDelayed(this, delay)
-//            }
-//        }
-//
-//        handler.postDelayed(runnable, delay)
-//    }
 
     override fun onMapReady(googleMap: GoogleMap) {
         // Konfigurasi peta dan tampilkan marker atau informasi lainnya

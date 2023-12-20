@@ -8,7 +8,7 @@ import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import com.thequest.artiquest.R
-import com.thequest.artiquest.view.welcome.feature.FeatureActivity
+import com.thequest.artiquest.view.welcome.WelcomeActivity
 
 @SuppressLint("CustomSplashScreen")
 class SplashActivity : AppCompatActivity() {
@@ -22,7 +22,7 @@ class SplashActivity : AppCompatActivity() {
         splashLogo.startAnimation(animationBlink)
 
         Handler().postDelayed({
-            val intent = Intent(this@SplashActivity, FeatureActivity::class.java)
+            val intent = Intent(this@SplashActivity, WelcomeActivity::class.java)
             startActivity(intent)
             finish()
         }, SPLASH_DELAY)
