@@ -18,7 +18,7 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        buildConfigField("String", "BASE_URL", "\"https://valorant-api.com/v1/\"")
+        buildConfigField("String", "BASE_URL", "\"http://34.124.221.126:8080/\"")
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -35,6 +35,7 @@ android {
                 "proguard-rules.pro"
             )
         }
+
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -81,6 +82,7 @@ dependencies {
 
     // Library Glide
     implementation("com.github.bumptech.glide:glide:4.16.0")
+    annotationProcessor ("com.github.bumptech.glide:compiler:4.16.0")
 
     // Library Data Store
     implementation ("androidx.datastore:datastore-preferences:1.0.0")

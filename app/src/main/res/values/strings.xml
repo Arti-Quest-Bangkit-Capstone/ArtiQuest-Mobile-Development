@@ -69,5 +69,6 @@
     <string name="description">Description</string>
     <string name="explanation_description">Explanation Description</string>
     <string name="location_artifacts">Location of Artifacts</string>
+    <string name="artifact_data">Artifact Data</string>
 
 </resources>
