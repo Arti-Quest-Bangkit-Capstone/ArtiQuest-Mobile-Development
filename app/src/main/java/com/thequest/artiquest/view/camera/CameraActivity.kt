@@ -1,46 +1,45 @@
 package com.thequest.artiquest.view.camera
 
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.OrientationEventListener
 import android.view.Surface
+import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.CameraSelector
-import androidx.camera.core.CameraXThreads.TAG
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.ImageCaptureException
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
-import com.thequest.artiquest.R
+import com.thequest.artiquest.data.remote.api.retrofit.ApiConfig
 import com.thequest.artiquest.data.remote.api.retrofit.ApiService
 import com.thequest.artiquest.databinding.ActivityCameraBinding
 import com.thequest.artiquest.utils.createCustomTempFile
+import com.thequest.artiquest.view.detail.DetailActivity
+import id.zelory.compressor.Compressor
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import pub.devrel.easypermissions.EasyPermissions
 import java.io.File
 
 class CameraActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityCameraBinding
-    private var cameraSelector : CameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
-    private var imageCapture : ImageCapture? = null
-//    private val retrofit: Retrofit = Retrofit.Builder()
-//        .baseUrl("YOUR_API")
-//        .addConverterFactory(GsonConverterFactory.create())
-//        .build()
-//
-//    private val apiService: ApiService = retrofit.create(ApiService::class.java)
+    private var cameraSelector: CameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
+    private var imageCapture: ImageCapture? = null
+
+    private val apiService: ApiService = ApiConfig.getApiService()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,16 +47,16 @@ class CameraActivity : AppCompatActivity() {
         binding = ActivityCameraBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.switchCamera.setOnClickListener{
+        binding.switchCamera.setOnClickListener {
             cameraSelector =
-                if(
+                if (
                     cameraSelector == CameraSelector.DEFAULT_BACK_CAMERA
-                    ) CameraSelector.DEFAULT_FRONT_CAMERA
+                ) CameraSelector.DEFAULT_FRONT_CAMERA
                 else
                     CameraSelector.DEFAULT_BACK_CAMERA
             startCamera()
         }
-        binding.captureImage.setOnClickListener{
+        binding.captureImage.setOnClickListener {
             takePhoto()
         }
     }
@@ -68,36 +67,45 @@ class CameraActivity : AppCompatActivity() {
         startCamera()
     }
 
-    private fun startCamera(){
-        val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
+    private fun startCamera() {
+        if (checkPermissionCameraGranted()) {
+            val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
 
-        cameraProviderFuture.addListener({
-            val cameraProvider: ProcessCameraProvider = cameraProviderFuture.get()
-            val preview = Preview.Builder()
-                .build()
-                .also {
-                    it.setSurfaceProvider(binding.viewFinder.surfaceProvider)
+            cameraProviderFuture.addListener({
+                val cameraProvider: ProcessCameraProvider = cameraProviderFuture.get()
+                val preview = Preview.Builder()
+                    .build()
+                    .also {
+                        it.setSurfaceProvider(binding.viewFinder.surfaceProvider)
+                    }
+                imageCapture = ImageCapture.Builder()
+                    .build()
+
+                try {
+                    cameraProvider.unbindAll()
+                    cameraProvider.bindToLifecycle(
+                        this,
+                        cameraSelector,
+                        preview,
+                        imageCapture
+                    )
+                } catch (exc: Exception) {
+                    Toast.makeText(
+                        this@CameraActivity,
+                        "Gagal memuat kamera.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    Log.e(TAG, "startCamera: ${exc.message}")
                 }
-            imageCapture = ImageCapture.Builder()
-                .build()
-
-            try {
-                cameraProvider.unbindAll()
-                cameraProvider.bindToLifecycle(
-                    this,
-                    cameraSelector,
-                    preview,
-                    imageCapture
-                )
-            } catch (exc: Exception) {
-                Toast.makeText(
-                    this@CameraActivity,
-                    "gagal memuat kamera.",
-                    Toast.LENGTH_SHORT
-                ).show()
-                Log.e(TAG, "startCamera: ${exc.message}")
-            }
-        }, ContextCompat.getMainExecutor(this))
+            }, ContextCompat.getMainExecutor(this))
+        } else {
+            EasyPermissions.requestPermissions(
+                this,
+                "Camera permission is required",
+                RC_CAMERA_PERMISSION,
+                REQUIRED_PERMISSION_CAMERA
+            )
+        }
     }
 
     private fun takePhoto() {
@@ -112,19 +120,11 @@ class CameraActivity : AppCompatActivity() {
             ContextCompat.getMainExecutor(this),
             object : ImageCapture.OnImageSavedCallback {
                 override fun onImageSaved(output: ImageCapture.OutputFileResults) {
-                    val intent = Intent()
-                    intent.putExtra(EXTRA_CAMERAX_IMAGE, output.savedUri.toString())
-                    setResult(CAMERAX_RESULT, intent)
-                    finish()
-//                    sendImageForIdentification(photoFile)
+                    sendImageForIdentification(photoFile)
                 }
 
                 override fun onError(exc: ImageCaptureException) {
-                    Toast.makeText(
-                        this@CameraActivity,
-                        "Gagal mengambil gambar : ${exc.message}",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    showToast("Gagal mengambil gambar : ${exc.message}")
                     Log.e(TAG, "onError: ${exc.message}", exc)
                 }
             }
@@ -144,43 +144,59 @@ class CameraActivity : AppCompatActivity() {
         supportActionBar?.hide()
     }
 
-//    private fun sendImageForIdentification(imageFile: File) {
-//        val requestFile = imageFile.asRequestBody("image/*".toMediaTypeOrNull())
-//        val body = MultipartBody.Part.createFormData("file", imageFile.name, requestFile)
-//
-//        apiService.identifyImage(body).enqueue(object : Callback<IdetificationResponse> {
-//            override fun onResponse(
-//                call: Call<IdetificationResponse>,
-//                response: Response<IdetificationResponse>
-//            ) {
-//                if (response.isSuccessful) {
-//                    val identificationResult = response.body()
-//                    identificationResult?.let {
-//                        val identifiedItem = it.itemName
-//                        Toast.makeText(
-//                            this@CameraActivity,
-//                            "Object teridentifikasi : $identifiedItem" ,
-//                            Toast.LENGTH_SHORT
-//                        ).show()
-//                    }
-//                } else {
-//                    Toast.makeText(
-//                        this@CameraActivity,
-//                        "Gagal mengidentifikasi object.",
-//                        Toast.LENGTH_SHORT
-//                    ).show()
-//                }
-//            }
-//
-//            override fun onFailure(call: Call<IdentificationResponse>, t: Throwable) {
-//                Toast.makeText(
-//                    this@CameraActivity,
-//                    "Kesalahan jaringan : ${t.message}",
-//                    Toast.LENGTH_SHORT
-//                ).show()
-//            }
-//        })
-//    }
+
+    private fun sendImageForIdentification(imageFile: File) {
+        showLoading(true)
+
+        GlobalScope.launch {
+            try {
+                // Mengompres gambar sebelum mengirimnya
+                val compressedImageFile = Compressor.compress(this@CameraActivity, imageFile)
+                val requestFile = compressedImageFile.asRequestBody("image/*".toMediaTypeOrNull())
+                val body =
+                    MultipartBody.Part.createFormData("file", compressedImageFile.name, requestFile)
+
+                // Melakukan request ke server secara asinkron
+                val response = apiService.scanArtifact(body).execute()
+
+                // Kembali ke thread utama untuk menangani hasil
+                launch(Dispatchers.Main) {
+                    showLoading(false)
+
+                    if (response.isSuccessful) {
+                        val identificationResult = response.body()
+                        identificationResult?.let {
+                            val identifiedItem = it.idClass
+                            val intent = Intent(this@CameraActivity, DetailActivity::class.java)
+                            intent.putExtra(EXTRA_IDENTIFIED, identifiedItem.toString())
+                            startActivity(intent)
+                            Toast.makeText(
+                                this@CameraActivity,
+                                "Object teridentifikasi : $identifiedItem",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    } else {
+                        Toast.makeText(
+                            this@CameraActivity,
+                            "Gagal mengidentifikasi object.",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            } catch (e: Exception) {
+                // Tangani kesalahan yang mungkin terjadi selama proses asinkron
+                launch(Dispatchers.Main) {
+                    showLoading(false)
+                    Toast.makeText(
+                        this@CameraActivity,
+                        "Terjadi kesalahan: ${e.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
+    }
 
     private val orientationEventListener by lazy {
         object : OrientationEventListener(this) {
@@ -201,6 +217,13 @@ class CameraActivity : AppCompatActivity() {
         }
     }
 
+
+    private fun checkPermissionCameraGranted() =
+        ContextCompat.checkSelfPermission(
+            this,
+            REQUIRED_PERMISSION_CAMERA
+        ) == PackageManager.PERMISSION_GRANTED
+
     override fun onStart() {
         super.onStart()
         orientationEventListener.enable()
@@ -211,9 +234,18 @@ class CameraActivity : AppCompatActivity() {
         orientationEventListener.disable()
     }
 
+    private fun showLoading(isLoading: Boolean) {
+        binding.progressIndicator.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
     companion object {
         private const val TAG = "CameraActivity"
-        const val EXTRA_CAMERAX_IMAGE = "CameraX Image"
-        const val CAMERAX_RESULT = 200
+        private const val REQUIRED_PERMISSION_CAMERA = android.Manifest.permission.CAMERA
+        private const val RC_CAMERA_PERMISSION = 123
+        private const val EXTRA_IDENTIFIED = "extra_identified"
     }
 }

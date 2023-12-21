@@ -27,7 +27,7 @@ class AdapterSilder(private val context: Context, private val dataSlider: List<S
         val imgViewSlider: ImageView = view.findViewById(R.id.iv_slider)
         context.let {
             Glide.with(it)
-                .load(dataSlider[position]) // Jika dataSlider berisi URL, ganti dengan URL tersebut
+                .load(dataSlider[position])
                 .into(imgViewSlider)
         }
 

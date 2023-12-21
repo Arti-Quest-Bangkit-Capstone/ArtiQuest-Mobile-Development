@@ -14,7 +14,7 @@ class EmailPassHelper(private val activity: Activity) {
             Toast.makeText(activity, "Email and Password must not be empty", Toast.LENGTH_SHORT)
                 .show()
             onComplete(null)
-            return  // Return early if email or password is empty
+            return
         }
 
         auth.signInWithEmailAndPassword(email, password)

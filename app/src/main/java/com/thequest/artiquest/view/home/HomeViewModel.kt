@@ -12,7 +12,6 @@ import com.thequest.artiquest.data.repository.ArtifactRepository
 import kotlinx.coroutines.launch
 
 class HomeViewModel(private val repository: ArtifactRepository) : ViewModel() {
-    val error = MutableLiveData<String?>()
     private val _loading = MutableLiveData<Boolean>()
     val loading: LiveData<Boolean> = _loading
 

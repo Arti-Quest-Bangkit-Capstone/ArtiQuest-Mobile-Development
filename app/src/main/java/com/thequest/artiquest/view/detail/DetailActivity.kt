@@ -47,7 +47,7 @@ class DetailActivity : AppCompatActivity(), OnMapReadyCallback, TextToSpeech.OnI
         textToSpeech = TextToSpeech(this, this)
         setupAction()
         getDetailArtifact()
-
+        getDetailArtifactFromScan()
 
     }
 
@@ -69,9 +69,53 @@ class DetailActivity : AppCompatActivity(), OnMapReadyCallback, TextToSpeech.OnI
         }
     }
 
+    private fun getDetailArtifactFromScan() {
+        val identifiedItemId = intent.getStringExtra(EXTRA_IDENTIFIED)
+        if (identifiedItemId != null) {
+            detailViewModel.getDetailArtifact(identifiedItemId)
+            detailViewModel.detailArtifact.observe(this) { artifact ->
+                binding.apply {
+                    tvName.text = artifact.name
+                    tvDescription.text = artifact.description
+                    val handler = Handler(Looper.getMainLooper())
+                    vpSlider = binding.viewPager
+
+
+                    val imageUrls = listOf(
+                        artifact.image1,
+                        artifact.image2,
+                        artifact.image3
+
+                    )
+                    val adapterSlider = AdapterSilder(this.root.context, imageUrls)
+                    vpSlider.adapter = adapterSlider
+
+                    val runnable = object : Runnable {
+                        override fun run() {
+                            val currentItem = vpSlider.currentItem
+                            val totalCount = adapterSlider.count
+
+                            if (currentItem < totalCount - 1) {
+                                vpSlider.currentItem = currentItem + 1
+                            } else {
+                                vpSlider.currentItem = 0
+                            }
+
+                            handler.postDelayed(this, delay)
+                        }
+                    }
+
+                    handler.postDelayed(runnable, delay)
+
+                }
+            }
+        }
+
+    }
+
     private fun getDetailArtifact() {
         val id = intent.getStringExtra(EXTRA_ID)
-        Log.e("DetailActivity", "idnya adalah {$id}")
+
         if (id != null) {
             detailViewModel.getDetailArtifact(id)
             detailViewModel.detailArtifact.observe(this) { artifact ->
@@ -83,7 +127,10 @@ class DetailActivity : AppCompatActivity(), OnMapReadyCallback, TextToSpeech.OnI
 
                     //!TODO : Mengubah pemanggilan list dengan index
                     val imageUrls = listOf(
-                        artifact.image
+                        artifact.image1,
+                        artifact.image2,
+                        artifact.image3
+
                     )
                     val adapterSlider = AdapterSilder(this.root.context, imageUrls)
                     vpSlider.adapter = adapterSlider
@@ -117,10 +164,13 @@ class DetailActivity : AppCompatActivity(), OnMapReadyCallback, TextToSpeech.OnI
     override fun onMapReady(googleMap: GoogleMap) {
         // Konfigurasi peta dan tampilkan marker atau informasi lainnya
         mMap = googleMap
-        val sydney = LatLng(-34.0, 151.0)
+        detailViewModel.detailArtifact.observe(this) { artifact ->
+            val located = artifact.lat?.let { artifact.lon?.let { it1 -> LatLng(it, it1) } }
+            mMap.addMarker(MarkerOptions().position(located!!).title(artifact.location))
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(located, 15f))
 
-        mMap.addMarker(MarkerOptions().position(sydney).title("This is Sydney"))
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, 15f))
+        }
+
     }
 
     override fun onInit(status: Int) {
@@ -155,6 +205,7 @@ class DetailActivity : AppCompatActivity(), OnMapReadyCallback, TextToSpeech.OnI
     companion object {
         private const val delay = 4000L
         private const val EXTRA_ID = "extra_id"
+        private const val EXTRA_IDENTIFIED = "extra_identified"
     }
 
 

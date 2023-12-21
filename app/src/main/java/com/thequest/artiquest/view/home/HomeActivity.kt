@@ -93,13 +93,9 @@ class HomeActivity : AppCompatActivity() {
                 }
             })
 
-            // Opsional, Anda juga dapat menangani aksi 'submit'
-            searchView.setOnQueryTextFocusChangeListener { _, hasFocus ->
-                if (!hasFocus) {
-                    // SearchView kehilangan fokus, Anda dapat melakukan tindakan di sini jika diperlukan
-                }
-            }
         }
+
+        // Buat kalo scroll kebawah navbar bottom hilang
 
 //        binding.rvArtifacts.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 //            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
