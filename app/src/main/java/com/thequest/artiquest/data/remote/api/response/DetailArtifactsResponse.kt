@@ -2,16 +2,16 @@ package com.thequest.artiquest.data.remote.api.response
 
 import com.google.gson.annotations.SerializedName
 
-data class ArtifactsResponse(
+data class DetailArtifactsResponse(
 
 	@field:SerializedName("data")
-	val data: List<ArtifactItem> ,
+	val data: Artifact? = null,
 
 	@field:SerializedName("success")
 	val success: Boolean? = null
 )
 
-data class ArtifactItem(
+data class Artifact(
 
 	@field:SerializedName("image")
 	val image: String? = null,

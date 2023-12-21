@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.thequest.artiquest.data.remote.api.response.Agent
+import com.thequest.artiquest.data.remote.api.response.Artifact
 import com.thequest.artiquest.data.repository.ArtifactRepository
 import kotlinx.coroutines.launch
 
@@ -13,7 +13,7 @@ class DetailViewModel(private val repository: ArtifactRepository) : ViewModel() 
     private val _loading = MutableLiveData<Boolean>()
     val loading: LiveData<Boolean> = _loading
 
-    val detailArtifact = MutableLiveData<Agent>()
+    val detailArtifact = MutableLiveData<Artifact>()
 
     fun getDetailArtifact(id: String) {
         viewModelScope.launch {
@@ -24,7 +24,7 @@ class DetailViewModel(private val repository: ArtifactRepository) : ViewModel() 
                 detailArtifact.value = detailResponse.data!!
 
             } catch (e: Exception) {
-                Log.e(TAG, "Error load stories: ${e.message}")
+                Log.e(TAG, "Error load artifact: ${e.message}")
             } finally {
                 _loading.value = false
             }

@@ -71,19 +71,19 @@ class DetailActivity : AppCompatActivity(), OnMapReadyCallback, TextToSpeech.OnI
 
     private fun getDetailArtifact() {
         val id = intent.getStringExtra(EXTRA_ID)
+        Log.e("DetailActivity", "idnya adalah {$id}")
         if (id != null) {
             detailViewModel.getDetailArtifact(id)
             detailViewModel.detailArtifact.observe(this) { artifact ->
                 binding.apply {
-                    tvName.text = artifact.displayName
+                    tvName.text = artifact.name
                     tvDescription.text = artifact.description
                     val handler = Handler(Looper.getMainLooper())
                     vpSlider = binding.viewPager
 
+                    //!TODO : Mengubah pemanggilan list dengan index
                     val imageUrls = listOf(
-                        artifact.displayIcon,
-                        artifact.bustPortrait,
-                        artifact.background
+                        artifact.image
                     )
                     val adapterSlider = AdapterSilder(this.root.context, imageUrls)
                     vpSlider.adapter = adapterSlider
