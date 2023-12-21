@@ -101,6 +101,7 @@ dependencies {
     testImplementation ("org.robolectric:robolectric:4.5.1")
 
     // Library Camera
+    implementation("androidx.camera:camera-core:$cameraxVersion")
     implementation("androidx.camera:camera-camera2:$cameraxVersion")
     implementation("androidx.camera:camera-lifecycle:$cameraxVersion")
     implementation("androidx.camera:camera-view:$cameraxVersion")

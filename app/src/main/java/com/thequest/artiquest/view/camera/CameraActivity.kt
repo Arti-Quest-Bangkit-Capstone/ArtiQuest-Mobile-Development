@@ -35,12 +35,12 @@ class CameraActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCameraBinding
     private var cameraSelector : CameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
     private var imageCapture : ImageCapture? = null
-    private val retrofit: Retrofit = Retrofit.Builder()
-        .baseUrl("YOUR_API")
-        .addConverterFactory(GsonConverterFactory.create())
-        .build()
-
-    private val apiService: ApiService = retrofit.create(ApiService::class.java)
+//    private val retrofit: Retrofit = Retrofit.Builder()
+//        .baseUrl("YOUR_API")
+//        .addConverterFactory(GsonConverterFactory.create())
+//        .build()
+//
+//    private val apiService: ApiService = retrofit.create(ApiService::class.java)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,7 +78,8 @@ class CameraActivity : AppCompatActivity() {
                 .also {
                     it.setSurfaceProvider(binding.viewFinder.surfaceProvider)
                 }
-//            imageCapture = ImageCapture.Builder().build()
+            imageCapture = ImageCapture.Builder()
+                .build()
 
             try {
                 cameraProvider.unbindAll()
