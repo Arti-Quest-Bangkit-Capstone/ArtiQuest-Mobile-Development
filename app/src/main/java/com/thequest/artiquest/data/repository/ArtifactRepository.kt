@@ -1,18 +1,19 @@
 package com.thequest.artiquest.data.repository
 
 import com.thequest.artiquest.data.remote.api.response.AgentsResponse
+import com.thequest.artiquest.data.remote.api.response.ArtifactsResponse
 import com.thequest.artiquest.data.remote.api.response.DetailAgentResponse
 import com.thequest.artiquest.data.remote.api.retrofit.ApiService
 
 class ArtifactRepository private constructor(
     private val apiService: ApiService
 ) {
-    suspend fun getArtifacts(): AgentsResponse {
-        return apiService.getAgents()
+    suspend fun getArtifacts(): ArtifactsResponse {
+        return apiService.getArtifacts()
     }
 
-    suspend fun getDetailArtifact(id: String): DetailAgentResponse {
-        return apiService.getDetailAgent(id)
+    suspend fun getDetailArtifact(id: String): DetailAgentResponse  { // Response ntar diganti
+        return apiService.getDetailArtifact(id)
     }
 
     companion object {
