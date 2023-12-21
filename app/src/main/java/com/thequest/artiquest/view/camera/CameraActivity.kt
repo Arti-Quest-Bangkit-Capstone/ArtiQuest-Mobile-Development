@@ -122,10 +122,10 @@ class CameraActivity : AppCompatActivity() {
                 override fun onError(exc: ImageCaptureException) {
                     Toast.makeText(
                         this@CameraActivity,
-                        "Gagal mengambil gambar.",
+                        "Gagal mengambil gambar : ${exc.message}",
                         Toast.LENGTH_SHORT
                     ).show()
-                    Log.e(TAG, "onError: ${exc.message}")
+                    Log.e(TAG, "onError: ${exc.message}", exc)
                 }
             }
         )
