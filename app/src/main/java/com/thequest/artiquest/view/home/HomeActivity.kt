@@ -115,9 +115,6 @@ class HomeActivity : AppCompatActivity() {
 //            }
 //        })
 
-        // Setel untuk Search
-
-
     }
 
     private fun showRecyclerView() {

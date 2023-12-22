@@ -23,6 +23,7 @@ import com.thequest.artiquest.data.remote.api.retrofit.ApiService
 import com.thequest.artiquest.databinding.ActivityCameraBinding
 import com.thequest.artiquest.utils.createCustomTempFile
 import com.thequest.artiquest.view.detail.DetailActivity
+import com.thequest.artiquest.view.home.HomeActivity
 import id.zelory.compressor.Compressor
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -58,6 +59,12 @@ class CameraActivity : AppCompatActivity() {
         }
         binding.captureImage.setOnClickListener {
             takePhoto()
+        }
+
+        binding.imageViewBack.setOnClickListener{
+            val intent = Intent(this, HomeActivity::class.java)
+            startActivity(intent)
+            finish()
         }
     }
 

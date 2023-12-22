@@ -125,7 +125,6 @@ class DetailActivity : AppCompatActivity(), OnMapReadyCallback, TextToSpeech.OnI
                     val handler = Handler(Looper.getMainLooper())
                     vpSlider = binding.viewPager
 
-                    //!TODO : Mengubah pemanggilan list dengan index
                     val imageUrls = listOf(
                         artifact.image1,
                         artifact.image2,
