@@ -1,19 +1,22 @@
 package com.thequest.artiquest.view.signup
 
 import android.content.ContentValues
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.google.firebase.auth.FirebaseAuth
+import com.thequest.artiquest.data.local.database.User
+import com.thequest.artiquest.data.local.database.UserDatabase
 import com.thequest.artiquest.databinding.ActivitySignupBinding
 import com.thequest.artiquest.view.home.HomeActivity
 import com.thequest.artiquest.view.login.LoginActivity
 import com.thequest.artiquest.view.login.helper.EmailPassHelper
 import com.thequest.artiquest.view.login.helper.GoogleSignInHelper
 import com.thequest.artiquest.view.welcome.WelcomeActivity
+import kotlinx.coroutines.launch
 
 
 class SignupActivity : AppCompatActivity() {
@@ -92,21 +95,35 @@ class SignupActivity : AppCompatActivity() {
                     val user = auth.currentUser
                     val uid = user?.uid
 
+                    uid?.let {
+                        lifecycleScope.launch {
+                            try {
+                                // Perform database operations in a coroutine
+                                val userDao =
+                                    UserDatabase.getDatabase(this@SignupActivity).userDao()
 
-                    // Mendapatkan referensi ke SharedPreferences
-                    val sharedPreferences =
-                        getSharedPreferences("$USER_PREFERENCE-$uid", Context.MODE_PRIVATE)
+                                // Create a new User object with only the username and uid
+                                val newUser = User(
+                                    uid = uid,
+                                    username = username,
+                                    displayName = "", // Set other fields as needed
+                                    phoneNumber = "",
+                                    profilePictureUrl = "DEFAULT_URL"
+                                )
 
-                    // Mendapatkan editor SharedPreferences
-                    val editor = sharedPreferences.edit()
-
-                    // Menyimpan data pengguna ke SharedPreferences menggunakan kunci USERNAME
-                    editor.putString(USERNAME, username)
-                    editor.apply()
+                                // Insert the new user into the database
+                                userDao.insertUser(newUser)
+                            } catch (e: Exception) {
+                                // Handle exceptions
+                                e.printStackTrace()
+                            }
+                        }
+                    }
 
                     val intent = Intent(this, LoginActivity::class.java)
                     startActivity(intent)
                     finish()
+
                 }
             }
         }
@@ -124,8 +141,6 @@ class SignupActivity : AppCompatActivity() {
     }
 
     companion object {
-        private const val USERNAME = "username"
-        private const val USER_PREFERENCE = "user_preference"
         private const val RC_SIGN_IN = 9001
 
     }
