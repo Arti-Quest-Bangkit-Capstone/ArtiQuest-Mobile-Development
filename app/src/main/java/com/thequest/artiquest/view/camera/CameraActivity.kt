@@ -167,12 +167,13 @@ class CameraActivity : AppCompatActivity() {
                         val identificationResult = response.body()
                         identificationResult?.let {
                             val identifiedItem = it.idClass
+                            val nameItem = it.predictedClass
                             val intent = Intent(this@CameraActivity, DetailActivity::class.java)
                             intent.putExtra(EXTRA_IDENTIFIED, identifiedItem.toString())
                             startActivity(intent)
                             Toast.makeText(
                                 this@CameraActivity,
-                                "Object teridentifikasi : $identifiedItem",
+                                "Object teridentifikasi : $nameItem",
                                 Toast.LENGTH_SHORT
                             ).show()
                         }
